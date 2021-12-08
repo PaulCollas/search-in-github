@@ -1,7 +1,12 @@
 import express from "express";
 
 export function launch(port) {
+  
+  const cors = require('cors')
+
   const application = express();
+  
+  application.use(cors());
 
   application.get("/api/users/:username", (request, response) => {
     // Step 1 - Does User exist in our Database
@@ -15,4 +20,5 @@ export function launch(port) {
   application.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
   });
+
 }
