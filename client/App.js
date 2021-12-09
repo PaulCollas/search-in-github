@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, Image, Button, View, TextInput } from 'react-native';
+import Logo from './assets/github.png';
 
 export default function App() {
   const [username, setUsername] = useState("Dylan");
@@ -18,38 +19,90 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.topContainer}>
         <Image
-          style={{
-            resizeMode: "cover",
-            height: 100,
-            width: 300
-          }}
-          source={ {uri: 'https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'} }
+            source={Logo}
+            style={styles.image}
+          />
+      </View>
+      <View style={styles.middleContainer}>
+        <Text style={styles.h1}>Search In Github</Text>
+        <Text style={styles.h2}>Please enter a username :</Text>
+
+        <TextInput
+          onChangeText={setUsername}
+          value={username}
+          style={styles.input}
         />
       </View>
-
-      <TextInput
-        onChangeText={setUsername}
-        value={username}
-      />
-
-      <Button
-        onPress={search}
-        title="Search"
-        color="#841584"
-      />
-
-      <Text>{user.username}</Text>
-    </View>
+      <View style={styles.bottomContainer}>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="TRY THIS USERNAME"
+            style={styles.button}
+            // onPress={() => this.onPress()}
+            color="#000"
+          />
+        </View>
+      </View>
+  </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    justifyContent: 'space-between',
+    backgroundColor: '#000',
     alignItems: 'center',
+    width: '100%',
+  },
+  h1: {
+    color: '#FFFFFF',
+    fontSize: 40,
+  },
+  h2: {
+    color: '#F0F2F5',
+    fontSize: 18,
+    marginTop: 8,
+  },
+  image: {
+    width: 100,
+    height: 100,
     justifyContent: 'center',
   },
+  input: {
+    height: 40,
+    marginTop: 100,
+    borderWidth: 1,
+    borderColor: '#F0F2F5',
+    color: '#F0F2F5',
+    padding: 10,
+  },
+
+  buttonContainer: {
+    backgroundColor: '#F0F2F5',
+    borderRadius: 5,
+    padding: 8,
+    margin: 8,
+  },
+
+  topContainer: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  middleContainer: {
+    flex: 3,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+
+  bottomContainer: {
+    justifyContent: 'flex-end',
+    width: '90%',
+    margin: 20,
+    padding: 50,
+  },
+
 });
