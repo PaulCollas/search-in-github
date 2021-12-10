@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, Image, Button, View, TextInput } from 'react-native';
+
 import Logo from './assets/github.png';
 
 export default function App() {
@@ -8,42 +9,53 @@ export default function App() {
 
   async function search() {
     try {
-      const response = await fetch(`http://172.20.10.2:4242/api/users/${username}`);
+      // Use ngrok
+      // const response = await fetch(`http://6188-37-172-47-181.ngrok.io/api/users/${username}`);
+
+      const response = await fetch(`http://localhost:4242/api/users/${username}`);
+      
+
       const user = await response.json();
 
       setUser(user);
     } catch (error) {
       console.log(error.message);
     }
-  }
+  }  
 
   return (
+    
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Image
             source={Logo}
             style={styles.image}
-          />
-      </View>
-      <View style={styles.middleContainer}>
+        />
         <Text style={styles.h1}>Search In Github</Text>
         <Text style={styles.h2}>Please enter a username :</Text>
+      </View>
+      <View style={styles.middleContainer}>
+
 
         <TextInput
           onChangeText={setUsername}
           value={username}
           style={styles.input}
         />
-      </View>
-      <View style={styles.bottomContainer}>
+
         <View style={styles.buttonContainer}>
           <Button
             title="TRY THIS USERNAME"
             style={styles.button}
-            // onPress={() => this.onPress()}
+            onPress={search}
             color="#000"
           />
         </View>
+        <Text style={styles.h2}>Informations of user : {user.username}</Text>
+
+      </View>
+      <View style={styles.bottomContainer}>
+        <Text style={styles.h2}>Efrei - Paul COLLAS</Text>  
       </View>
   </View>
   );
@@ -51,7 +63,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
     backgroundColor: '#000',
     alignItems: 'center',
     width: '100%',
@@ -59,6 +70,7 @@ const styles = StyleSheet.create({
   h1: {
     color: '#FFFFFF',
     fontSize: 40,
+    marginTop: 20,
   },
   h2: {
     color: '#F0F2F5',
@@ -66,13 +78,12 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 75,
+    height: 75,
     justifyContent: 'center',
   },
   input: {
     height: 40,
-    marginTop: 100,
     borderWidth: 1,
     borderColor: '#F0F2F5',
     color: '#F0F2F5',
@@ -99,10 +110,8 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-    justifyContent: 'flex-end',
-    width: '90%',
-    margin: 20,
-    padding: 50,
+    alignItems: 'center',
+    padding: 10,
   },
 
 });
