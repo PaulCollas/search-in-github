@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, Image, Button, View, TextInput } from 'react-native';
+import { StyleSheet, Text, Image, Button, View, TextInput, Linking } from 'react-native';
 
 import Logo from './assets/github.png';
 
 export default function App() {
-  const [username, setUsername] = useState("Dylan");
+  const [username, setUsername] = useState("PaulCollas");
   const [user, setUser] = useState({});
+
+  const [fields, setFields] = useState([]);
 
   async function search() {
     try {
       // Use ngrok
-      // const response = await fetch(`http://6188-37-172-47-181.ngrok.io/api/users/${username}`);
+      const response = await fetch(`http://f07b-2a01-cb05-3b-aa00-4031-e93e-15a1-6894.ngrok.io/users/${username}`);
 
-      const response = await fetch(`http://localhost:4242/api/users/${username}`);
+      // const response = await fetch(`http://localhost:4242/users/${username}`);
       
 
       const user = await response.json();
 
       setUser(user);
+      setFields(Object.keys(user))
+
+      console.log(user)
+
     } catch (error) {
       console.log(error.message);
     }
@@ -46,12 +52,17 @@ export default function App() {
         <View style={styles.buttonContainer}>
           <Button
             title="TRY THIS USERNAME"
-            style={styles.button}
             onPress={search}
             color="#000"
           />
         </View>
-        <Text style={styles.h2}>Informations of user : {user.username}</Text>
+
+        <Text style={styles.h2}>Informations of user :</Text>
+
+        <Image style={styles.logo} source={{uri: user.avatar_url}} /> 
+        <Text style={styles.h2}>{user.name}</Text>
+        <Text style={styles.h2}>{user.bio}</Text>
+
 
       </View>
       <View style={styles.bottomContainer}>
@@ -77,10 +88,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 8,
   },
+  h3: {
+    color: '#F0F2F5',
+    fontSize: 12,
+    marginTop: 8,
+  },
   image: {
     width: 75,
     height: 75,
     justifyContent: 'center',
+  },
+
+  logo: {
+    width: 75,
+    height: 75,
+    justifyContent: 'center',
+    marginTop: 15,
   },
   input: {
     height: 40,
@@ -97,12 +120,21 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 
+  fixToText: {
+    backgroundColor: '#F0F2F5',
+    borderRadius: 5,
+    padding: 8,
+    margin: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   topContainer: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  
   middleContainer: {
     flex: 3,
     justifyContent: 'flex-start',
@@ -112,6 +144,6 @@ const styles = StyleSheet.create({
   bottomContainer: {
     alignItems: 'center',
     padding: 10,
-  },
+  }
 
 });

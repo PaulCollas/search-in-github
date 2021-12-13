@@ -21,6 +21,14 @@ yarn install
 yarn start
 ```
 
+Change the root with ngrok :
+
+Open terminal : 
+
+> ngrok http 4242
+
+Copy the root of ngrok & remplace in app.js
+
 # 🏆 Goal
 
 The purpose is to create a simple API using express and a showcase mobile app using Expo (React Native)
@@ -51,7 +59,7 @@ Ex:
     "html_url": "https://github.com/majdi",
     "followers_url": "https://api.github.com/users/majdi/followers",
     "following_url": "https://api.github.com/users/majdi/following{/other_user}",
-    "gists_url": "https://api.github.com/users/majdi/gists{/gist_id}",
+      "gists_url": "https://api.github.com/users/majdi/gists{/gist_id}",
     "starred_url": "https://api.github.com/users/majdi/starred{/owner}{/repo}",
     "subscriptions_url": "https://api.github.com/users/majdi/subscriptions",
     "organizations_url": "https://api.github.com/users/majdi/orgs",
